@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title></title>
+
+        <script>
+            function showRSS( str, min ) {
+                if ( str.length == 0 ) { 
+                    rssOutput.innerHTML="";
+                    return;
+                }
+
+                var request=new XMLHttpRequest();
+
+                request.addEventListener( 'load', mostrar, false );
+                request.open( "GET", "getrss.php?q="+str + "&lower=" + min, true );
+                request.send( null );
+            }
+    
+            function mostrar(e) {
+                rssOutput.innerHTML = e.target.responseText;
+            }
+
+        </script>
+    </head>
+    <body>
+        <form>
+            <select onchange="showRSS(this.value, 0)">
+                <option value="" >Select an RSS-feed:</option>
+                <option value="1">Politica</option>
+                <option value="2">Economia</option>
+                <option value="3">Internacional</option>
+            </select>
+        </form>
+        <br>
+        <div id="rssOutput">RSS-feed will be listed here...</div>
+    </body>
+</html>
